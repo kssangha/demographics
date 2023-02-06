@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.demographics.demographicsapi.services.DemographicsService;
 
 import java.math.BigDecimal;
@@ -38,17 +35,16 @@ public class DemographicsController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Key Does Not Match");
         }
     }
+    @PostMapping("/v2/add")
+    public ResponseEntity<String> addDemographics(@RequestBody Data data){
+        return ResponseEntity.status(HttpStatus.OK).body(demographicsService.addDemographicsData(data));
+    }
 
 
     // A check like this can be done on the longitude and latitude values to ensure the location is within the range
     private boolean authenticateKey (String key){
         String lock = "verticalCity";
 
-        if (key.equals(lock)){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return key.equals(lock);
     }
 }

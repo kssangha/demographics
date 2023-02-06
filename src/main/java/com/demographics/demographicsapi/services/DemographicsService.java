@@ -8,9 +8,17 @@ import java.util.ArrayList;
 
 @Service
 public class DemographicsService {
+    public Data data;
+
     public Data getDemographicsData(long lat, long lng){
-        ArrayList<Data> dataSet= populateDemographicsData();
-        return dataSet.get(findAreaId(lat, lng));
+        //ArrayList<Data> dataSet= populateDemographicsData();
+        //return dataSet.get(findAreaId(lat, lng));
+        return this.data;
+    }
+
+    public String addDemographicsData(Data data){
+        this.data = data;
+        return "Saved";
     }
 
     /**
